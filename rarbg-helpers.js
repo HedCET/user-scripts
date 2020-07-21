@@ -23,9 +23,57 @@
       },
     },
     {
+      ref: '#description img[src*="22pixx.xyz/s/"]',
+      srcMatch: "22pixx\\.xyz\\/s\\/",
+      srcReplace: "22pixx.xyz/i/",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
       ref: '#description img[src*="imagecurl.com/images/"]',
       srcMatch: "_thumb\\.",
       srcReplace: ".",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
+      ref: '#description img[src*="imagesnake.com/tn/t"]',
+      srcMatch: "tn\\/t",
+      srcReplace: "tn/i",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
+      ref: '#description img[src*="freebunker.com/tn/t"]',
+      srcMatch: "tn\\/t",
+      srcReplace: "tn/i",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
+      ref: '#description img[src*="pornbus.org/tn/t"]',
+      srcMatch: "tn\\/t",
+      srcReplace: "tn/i",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
+      ref: '#description img[src*="imgprime.com/uploads/"]',
+      srcMatch: "\\/small\\/",
+      srcReplace: "/big/",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
+      ref: '#description img[src*="imgcarry.com/tn/t"]',
+      srcMatch: "tn\\/t",
+      srcReplace: "tn/i",
       style: {
         maxWidth: "unset",
       },
