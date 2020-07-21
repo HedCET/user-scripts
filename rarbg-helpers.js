@@ -11,37 +11,43 @@
 // ==/UserScript==
 
 (async () => {
-    'use strict';
+  "use strict";
 
-    const selectors = [{
-            ref: '#description img[src*="22pixx.xyz/os/"]',
-            srcMatch: '22pixx\\.xyz\\/os\\/',
-            srcReplace: '22pixx.xyz/o/',
-            style: {
-                maxWidth: 'unset',
-            },
-        }, {
-            ref: '#description img[src*="imagecurl.com/images/"]',
-            srcMatch: '_thumb\\.',
-            srcReplace: '.',
-            style: {
-                maxWidth: 'unset',
-            },
-        }];
+  const selectors = [
+    {
+      ref: '#description img[src*="22pixx.xyz/os/"]',
+      srcMatch: "22pixx\\.xyz\\/os\\/",
+      srcReplace: "22pixx.xyz/o/",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+    {
+      ref: '#description img[src*="imagecurl.com/images/"]',
+      srcMatch: "_thumb\\.",
+      srcReplace: ".",
+      style: {
+        maxWidth: "unset",
+      },
+    },
+  ];
 
-    for(const selector of selectors) {
-        const refs = document.querySelectorAll(selector.ref);
+  for (const selector of selectors) {
+    const refs = document.querySelectorAll(selector.ref);
 
-        for(const ref of refs) {
-            if(selector.srcMatch) {
-                ref.src = ref.src.replace(new RegExp(selector.srcMatch, selector.srcMatchOpt || ''), selector.srcReplace || '');
-            }
+    for (const ref of refs) {
+      if (selector.srcMatch) {
+        ref.src = ref.src.replace(
+          new RegExp(selector.srcMatch, selector.srcMatchOpt || ""),
+          selector.srcReplace || ""
+        );
+      }
 
-            if(selector.style) {
-                for(const prop of Object.keys(selector.style)) {
-                    ref.style[prop] = selector.style[prop];
-                }
-            }
+      if (selector.style) {
+        for (const prop of Object.keys(selector.style)) {
+          ref.style[prop] = selector.style[prop];
         }
+      }
     }
+  }
 })();
