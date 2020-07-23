@@ -13,7 +13,7 @@
 (async () => {
   "use strict";
 
-  const selectors = [
+  const imgSelectors = [
     {
       ref: '#description img[src*="22pixx.xyz/os/"]',
       srcMatch: "22pixx\\.xyz\\/os\\/",
@@ -88,34 +88,47 @@
     },
   ];
 
-  for (const selector of selectors) {
-    const refs = document.querySelectorAll(selector.ref);
+  for (const imgSelector of imgSelectors) {
+    const refs = document.querySelectorAll(imgSelector.ref);
 
     for (const ref of refs) {
-      if (selector.srcMatch) {
+      if (imgSelector.srcMatch) {
         ref.src = ref.src.replace(
-          new RegExp(selector.srcMatch, selector.srcMatchOpt || ""),
-          selector.srcReplace || ""
+          new RegExp(imgSelector.srcMatch, imgSelector.srcMatchOpt || ""),
+          imgSelector.srcReplace || ""
         );
       }
 
-      if (selector.style) {
-        for (const prop of Object.keys(selector.style)) {
-          ref.style[prop] = selector.style[prop];
+      if (imgSelector.style) {
+        for (const prop of Object.keys(imgSelector.style)) {
+          ref.style[prop] = imgSelector.style[prop];
         }
       }
     }
   }
 
-  const viewed = JSON.parse(localStorage.getItem("viewed") || "[]");
+  const listed = JSON.parse(localStorage.getItem("listed") || "[]");
+  const opened = JSON.parse(localStorage.getItem("opened") || "[]");
 
   for (const element of document.querySelectorAll(
     '.lista2t td:nth-child(2) > a[onmouseover^="return overlib"]'
   ) || []) {
-    if (-1 < viewed.indexOf(element.href))
-      element.closest("tr").style.borderLeft = "3px solid yellow";
-    else viewed.push(element.href);
+    if (-1 < listed.indexOf(element.href))
+      element.closest("tr").style.borderLeft = "2px solid yellow";
+    else listed.push(element.href);
+
+    if (-1 < opened.indexOf(element.href))
+      element.closest("tr").style.borderLeft = "2px solid red";
   }
 
-  localStorage.setItem("viewed", JSON.stringify(viewed));
+  if (
+    location.href.match(
+      /https?:\/\/rarbg[0-9a-z]*\.[0-9a-z]{2,4}\/torrent\/[^\/\?]+/
+    ) &&
+    opened.indexOf(location.href) === -1
+  )
+    opened.push(location.href);
+
+  localStorage.setItem("listed", JSON.stringify(listed));
+  localStorage.setItem("opened", JSON.stringify(opened));
 })();
