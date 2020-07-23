@@ -7,7 +7,7 @@
 // @grant        none
 // @run-at       document-end
 // @noframes
-// @match        http://rarbgp2p.org/torrent/*
+// @match        http://rarbgp2p.org/torrent*
 // ==/UserScript==
 
 (async () => {
@@ -78,6 +78,14 @@
         maxWidth: "unset",
       },
     },
+    {
+      ref: '#description img[src*="imgshots.com/tn/t"]',
+      srcMatch: "tn\\/t",
+      srcReplace: "tn/i",
+      style: {
+        maxWidth: "unset",
+      },
+    },
   ];
 
   for (const selector of selectors) {
@@ -98,4 +106,16 @@
       }
     }
   }
+
+  const viewed = JSON.parse(localStorage.getItem("viewed") || "[]");
+
+  for (const element of document.querySelectorAll(
+    '.lista2t td:nth-child(2) > a[onmouseover^="return overlib"]'
+  ) || []) {
+    if (-1 < viewed.indexOf(element.href))
+      element.closest("tr").style.borderLeft = "3px solid yellow";
+    else viewed.push(element.href);
+  }
+
+  localStorage.setItem("viewed", JSON.stringify(viewed));
 })();
